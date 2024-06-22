@@ -1,0 +1,49 @@
+plantuml
+@startuml
+
+participant Device
+participant Host
+
+== Session Initiation ==
+
+Device -> Host: PING
+activate Host
+Host -> Device: PING
+Device -> Host: SYNC_CWPA (Device Audio ClockRef)
+Host -> Device: RPLY (Local Audio ClockRef)
+alt not audioOnly
+    Host -> Device: ASYN_HPD1 (Video Device Info)
+end
+Host -> Device: ASYN_HPA1 (Audio Device Info, Device Audio ClockRef)
+Device -> Host: SYNC_AFMT (Audio Format Description)
+Host -> Device: RPLY (Error Code: 0)
+Device -> Host: SYNC_CVRP (Device Video ClockRef)
+Host -> Device: RPLY (Local Video ClockRef)
+Host -> Device: ASYN_NEED (Device Video ClockRef)
+Device -> Host: ASYN_SPRP (Set Properties)
+Device -> Host: ASYN_SPRP (Set Properties)
+Device -> Host: SYNC_CLOK
+Host -> Device: RPLY (Newly created ClockRef)
+Device -> Host: SYNC_TIME
+Host -> Device: RPLY (CMTime)
+Device -> Host: SYNC_TIME
+Host -> Device: RPLY (CMTime)
+
+== Data Streaming ==
+
+Device -> Host: ASYN_EAT! (Audio Data, Device Audio ClockRef)
+Device -> Host: ASYN_FEED (Video Data, Local Video ClockRef)
+Host -> Device: ASYN_NEED (Device Video ClockRef)
+
+== Session Shutdown ==
+
+Host -> Device: ASYN_HPA0 (Device Audio ClockRef)
+Host -> Device: ASYN_HPD0
+Device -> Host: SYNC_STOP
+Host -> Device: RPLY (Zeros)
+Device -> Host: ASYN_RELS (Local Video ClockRef)
+Device -> Host: ASYN_RELS (Local ClockRef)
+deactivate Host
+
+@enduml
+
