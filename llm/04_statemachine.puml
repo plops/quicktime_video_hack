@@ -1,0 +1,29 @@
+plantuml
+@startuml
+
+state "Device Idle" as Idle
+state "Waiting for Ping" as WaitPing
+state "Streaming" as Streaming
+state "Stopping" as Stopping
+
+[*] --> Idle
+Idle --> WaitPing : Host connects to USB Endpoint
+WaitPing --> Streaming : Device sends PING, Host replies with PING
+Streaming --> Stopping : Host sends HPA0 and HPD0
+Stopping --> Idle : Device sends RELS for both ClockRefs
+
+Streaming : Exchanges audio and video data
+Streaming : Exchanging Sync packets for clock synchronization
+
+state Streaming {
+  state "Exchanging Audio ClockRefs" as AudioClock
+  state "Exchanging Video ClockRefs" as VideoClock
+  state "Clock Synchronization" as ClockSync
+  
+  [*] --> AudioClock
+  AudioClock --> VideoClock : Device sends CWPA, Host replies with local clock
+  VideoClock --> ClockSync : Device sends CVRP, Host replies with local clock
+  ClockSync --> AudioClock : Device sends SYNC packets (AFMT, CLOK, TIME, SKEW)
+}
+
+@enduml
