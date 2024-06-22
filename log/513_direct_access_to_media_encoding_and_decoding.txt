@@ -1,0 +1,4250 @@
+Media
+
+Direct Access to
+Video Encoding and Decoding
+Session 513
+David Eldred
+Tech Lead, Frameworks with “Video” in their names
+
+© 2014 Apple Inc. All rights reserved. Redistribution or public display not permitted without written permission from Apple.
+
+#WWDC14
+
+Introduction
+Hardware encode and decode can improve user experience
+
+Introduction
+Hardware encode and decode can improve user experience
+• Better performance
+
+Introduction
+Hardware encode and decode can improve user experience
+• Better performance
+• Increased efficiency
+
+Introduction
+Hardware encode and decode can improve user experience
+• Better performance
+• Increased efficiency
+• Extend battery life
+
+What You Will Learn
+
+What You Will Learn
+Case Studies
+
+What You Will Learn
+Case Studies
+1. Displaying an H.264 stream in a layer in your application
+
+What You Will Learn
+Case Studies
+1. Displaying an H.264 stream in a layer in your application
+2. Decoding an H.264 stream and accessing the decoded buffers
+
+What You Will Learn
+Case Studies
+1. Displaying an H.264 stream in a layer in your application
+2. Decoding an H.264 stream and accessing the decoded buffers
+3. Compressing a sequence of images into a movie file
+
+What You Will Learn
+Case Studies
+1. Displaying an H.264 stream in a layer in your application
+2. Decoding an H.264 stream and accessing the decoded buffers
+3. Compressing a sequence of images into a movie file
+4. Compressing a sequence of images into an H.264 stream for the network
+
+What You Will Learn
+Case Studies
+1. Displaying an H.264 stream in a layer in your application
+2. Decoding an H.264 stream and accessing the decoded buffers
+3. Compressing a sequence of images into a movie file
+4. Compressing a sequence of images into an H.264 stream for the network
+
+Using multi-pass encoding in AVFoundation and Video Toolbox
+
+Media Interfaces Overview
+With a focus on video
+
+Media Interfaces Overview
+With a focus on video
+AVKit
+
+Media Interfaces Overview
+With a focus on video
+AVKit
+
+AVFoundation
+
+Media Interfaces Overview
+With a focus on video
+AVKit
+
+AVFoundation
+
+Video Toolbox
+
+Media Interfaces Overview
+With a focus on video
+AVKit
+
+AVFoundation
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+Media Interface Focus
+AVKit
+
+AV
+AVFoundation
+Foundation
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+Media Interface Focus
+AVFoundation
+
+AVKit
+
+• Decompress direct to display
+• Compress directly to file
+
+AV
+AVFoundation
+Foundation
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+Media Interface Focus
+AVFoundation
+
+AVKit
+
+• Decompress direct to display
+• Compress directly to file
+
+AV
+AVFoundation
+Foundation
+
+Video Toolbox
+• Decompress to CVPixelBuffer
+• Compress to CMSampleBuffer
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+Media Interface Focus
+AVKit
+
+AV
+AVFoundation
+Foundation
+
+Video Toolbox
+
+Hardware Codec Usage
+
+AVKit
+AVFoundation
+AV
+Foundation
+Video Toolbox
+
+Hardware Codec Usage
+iOS
+
+OS X
+
+AVKit
+
+Always
+
+When Available
+
+AVFoundation
+AV
+Foundation
+
+Always
+
+When Available
+
+Video Toolbox
+
+Always
+
+When Available and Requested
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+Uncompressed
+Raster Image Buffer
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CVPixelBuffer
+
+Uncompressed
+Raster Image Buffer
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CVPixelBuffers
+
+CVPixelBufferPool
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CFDictionary of requirements;
+May Include:
+• Width/height
+• Pixel format type (e.g., 32BGRA, YCbCr420)
+• Compatibility (e.g., OpenGL ES, Core Animation)
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+64-bit Time Value (Numerator)
+32-bit Time Scale (Denominator)
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+Width/Height
+!
+
+Format Type—(kCMPixelFormat_32BGRA,
+kCMVideoCodecType_H264,…)
+!
+
+Extensions—(Pixel Aspect Ratio, Color Space,…)
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMBlockBuffer
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMSampleBuffer
+
+CMSampleBuffer
+
+or
+
+Compressed Video Frame
+
+Uncompressed Raster Image
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMSampleBuffer
+
+CMSampleBuffer
+
+CMTime
+
+CMTime
+
+or
+
+Compressed Video Frame
+
+Uncompressed Raster Image
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMSampleBuffer
+
+CMSampleBuffer
+
+CMTime
+
+CMTime
+
+CMVideoFormatDesc
+
+CMVideoFormatDesc
+
+or
+
+Compressed Video Frame
+
+Uncompressed Raster Image
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMSampleBuffer
+
+CMSampleBuffer
+
+CMTime
+
+CMTime
+
+CMVideoFormatDesc
+
+CMVideoFormatDesc
+
+or
+CMBlockBuffer
+
+Compressed Video Frame
+
+Uncompressed Raster Image
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMSampleBuffer
+
+CMSampleBuffer
+
+CMTime
+
+CMTime
+
+CMVideoFormatDesc
+
+CMVideoFormatDesc
+
+or
+CMBlockBuffer
+
+CVPixelBuffer
+
+Compressed Video Frame
+
+Uncompressed Raster Image
+
+The Cast of Characters
+CMClock
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+The Cast of Characters
+CMClock
+CMClock
+
+Wraps a source of time
+A clock’s time always increases
+CMClockGetHostTimeClock() wraps mach_absolute_time()
+
+The Cast of Characters
+CVPixelBuffer
+CVPixelBufferPool
+pixelBufferAttributes
+CMTime
+CMVideoFormatDescription
+CMBlockBuffer
+CMSampleBuffer
+CMClock
+CMTimebase
+
+CMClock
+
+The Cast of Characters
+A controlled view onto a CMClock
+
+CMTimebase
+CMClock
+
+Provides:
+
+The Cast of Characters
+A controlled view onto a CMClock
+CMTimebaseSetTime(timebase, kCMTimeZero);
+
+CMTimebase
+CMClock
+
+Provides:
+• Time mapping
+
+The Cast of Characters
+A controlled view onto a CMClock
+CMTimebaseSetTime(timebase, kCMTimeZero);
+CMTimebaseSetRate(timebase, 1.0);
+
+CMTimebase
+CMClock
+
+Provides:
+• Time mapping
+• Rate control
+
+Case One
+Displaying video from a network stream
+
+Case One Overview
+
+Network
+
+Case One Overview
+
+Network
+
+Compressed Video
+Samples
+H.264
+
+H.264
+
+H.264
+
+Case One Overview
+
+Network
+
+Compressed Video
+Samples
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer
+A closer look
+
+AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer
+A closer look
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer
+A closer look
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+AVSampleBufferDisplayLayer
+A closer look
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+CVPixelBuffers
+
+AVSampleBufferDisplayLayer
+A closer look
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+CVPixelBuffers
+
+AVSampleBufferDisplayLayer Input
+
+Elementary Stream
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer Input
+
+Elementary Stream
+H.264
+
+H.264
+
+H.264
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer Input
+
+Elementary Stream
+H.264
+
+H.264
+
+H.264
+
+CMSampleBuffers
+processing
+
+H.264
+
+H.264
+
+H.264
+
+H.264 Syntax
+
+Elementary Stream
+
+MPEG-4
+
+H.264 Syntax
+
+Elementary Stream
+
+MPEG-4
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+NALU
+
+NAL Units may contain
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NAL Units may contain
+• Video frame (or slice of video frame)
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+P Frame B Frame B Frame
+
+NAL Units may contain
+• Video frame (or slice of video frame)
+
+NALU
+
+NALU
+
+NALU
+P Frame
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+NALU
+
+NALU
+
+I Frame
+
+NALU
+
+NALU
+
+NALU
+
+P Frame B Frame B Frame
+
+NAL Units may contain
+• Video frame (or slice of video frame)
+
+NALU
+
+NALU
+
+P Frame
+
+NALU
+P Frame
+
+H.264 Syntax
+Network Abstraction Layer (NAL)
+H.264 stream consists of a sequence of NAL Units (NALUs)
+NALU
+
+NALU
+
+SPS
+
+PPS
+
+NALU
+
+NALU
+
+I Frame
+
+NALU
+
+NALU
+
+NALU
+
+P Frame B Frame B Frame
+
+NALU
+
+NALU
+
+P Frame
+
+NAL Units may contain
+• Video frame (or slice of video frame)
+• H.264 parameter sets
+- Sequence Parameter Set (SPS) and Picture Parameter Set (PPS)
+
+NALU
+P Frame
+
+H.264 Syntax
+Parameter sets: SPS and PPS
+Elementary Stream
+
+MPEG-4
+
+H.264 Syntax
+Parameter sets: SPS and PPS
+Elementary Stream
+SPS
+PPS
+I frame
+P frame
+B frame
+B frame
+
+…
+Parameter Sets in Stream
+
+MPEG-4
+
+H.264 Syntax
+Parameter sets: SPS and PPS
+Elementary Stream
+
+MPEG-4
+
+SPS
+PPS
+
+I frame
+
+I frame
+
+SPS
+
+P frame
+
+P frame
+
+PPS
+
+B frame
+
+CMVideoFormatDescription
+
+B frame
+
+B frame
+B frame
+
+…
+Parameter Sets in Stream
+
+…
+
+Parameter Sets in Format Description
+
+H.264 Syntax
+Conversion
+Elementary Stream
+
+MPEG-4
+
+H.264 Syntax
+Conversion
+Elementary Stream
+
+SPS
+PPS
+
+MPEG-4
+
+H.264 Syntax
+Conversion
+Elementary Stream
+
+MPEG-4
+
+SPS
+
+SPS
+
+PPS
+
+PPS
+CMVideoFormatDescription
+
+H.264 Syntax
+Conversion
+Elementary Stream
+
+MPEG-4
+
+SPS
+
+SPS
+
+PPS
+
+PPS
+CMVideoFormatDescription
+
+CMVideoFormatDescriptionCreateFromH264ParameterSets
+
+H.264 Syntax
+NAL Unit headers
+Elementary Stream
+
+MPEG-4
+
+H.264 Syntax
+NAL Unit headers
+Elementary Stream
+00 00 01
+
+NAL Unit
+
+3- or 4-Byte Header:
+Start Code
+
+MPEG-4
+
+H.264 Syntax
+NAL Unit headers
+Elementary Stream
+00 00 01
+
+MPEG-4
+00 00 80 00
+
+NAL Unit
+
+NAL Unit
+(32768 bytes)
+
+3- or 4-Byte Header:
+Start Code
+
+4-Byte Header:
+Length
+
+Building a CMSampleBuffer
+NAL Unit conversion
+
+00 00 01
+
+NAL Unit
+
+Building a CMSampleBuffer
+NAL Unit conversion
+
+00 00 80 00
+
+NAL Unit
+(32768 bytes)
+
+Building a CMSampleBuffer
+NAL Unit conversion
+
+CMBlockBuffer
+00 00 80 00
+
+NAL Unit
+(32768 bytes)
+
+Building a CMSampleBuffer
+NAL Unit conversion
+
+CMBlockBuffer
+00 00 80 00
+SPS
+NAL Unit
+(32768 bytes)
+
++
+PPS
+CMVideoFormatDesc
+
+Building a CMSampleBuffer
+NAL Unit conversion
+
+CMBlockBuffer
+00 00 80 00
+SPS
+NAL Unit
+(32768 bytes)
+
++
+
++
+PPS
+CMVideoFormatDesc
+
+CMTime
+
+Building a CMSampleBuffer
+NAL Unit conversion
+CMSampleBuffer
+CMTime
+
+CMBlockBuffer
+00 00 80 00
+
+CMVideoFormatDesc
+SPS
+
+NAL Unit
+(32768 bytes)
+
++
+
++
+
+CMTime
+
+=
+
+PPS
+CMVideoFormatDesc
+
+CMBlockBuffer
+
+Building a CMSampleBuffer
+NAL Unit conversion
+CMSampleBuffer
+CMTime
+
+CMBlockBuffer
+00 00 80 00
+
+CMVideoFormatDesc
+SPS
+
+NAL Unit
+(32768 bytes)
+
++
+
++
+
+CMTime
+
+=
+
+PPS
+CMVideoFormatDesc
+
+CMSampleBufferCreate
+
+CMBlockBuffer
+
+AVSampleBufferDisplayLayer and Time
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+AVSampleBufferDisplayLayer and Time
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+!
+
+!
+
+!
+
+5.50s
+
+5.40s
+
+5.30s
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+AVSampleBufferDisplayLayer and Time
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+!
+
+!
+
+!
+
+5.50s
+
+5.40s
+
+5.30s
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+!
+
+!
+
+!
+
+!
+
+!
+
+!
+
+5.20s
+
+5.10s
+
+5.00s
+
+CVPixelBuffers
+
+AVSampleBufferDisplayLayer and Time
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+!
+
+!
+
+!
+
+5.50s
+
+5.40s
+
+5.30s
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+!
+
+!
+
+!
+
+!
+
+!
+
+!
+
+5.20s
+
+5.10s
+
+5.00s
+
+CVPixelBuffers
+
+hostTime
+
+AVSampleBufferDisplayLayer and Time
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+!
+
+!
+
+!
+
+5.50s
+
+5.40s
+
+5.30s
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+
+!
+
+!
+
+!
+
+!
+
+!
+
+!
+
+5.20s
+
+5.10s
+
+5.00s
+
+CVPixelBuffers
+
+CMTimebase
+
+sbDisplayLayer.controlTimebase =
+CMTimebaseCreateWithMasterClock(CMClockGetHostTimeClock());
+CMTimebaseSetTime(sbDisplayLayer.controlTimebase, CMTimeMake(5, 1));
+CMTimebaseSetRate(sbDisplayLayer.controlTimebase, 1.0);
+
+Feeding AVSampleBufferDisplayLayer
+Two scenarios
+
+Feeding AVSampleBufferDisplayLayer
+Two scenarios
+Periodic Source
+AVSampleBufferDisplayLayer
+
+Feeding AVSampleBufferDisplayLayer
+Two scenarios
+Periodic Source
+AVSampleBufferDisplayLayer
+
+Unconstrained Source
+
+AVSampleBufferDisplayLayer
+
+Feeding AVSampleBufferDisplayLayer
+Periodic source
+
+AVSampleBufferDisplayLayer
+
+Feeding AVSampleBufferDisplayLayer
+Periodic source
+!
+
+AVSampleBufferDisplayLayer
+
+!
+!
+
+Frame arrival corresponds to display frequency
+Enqueue with:
+[sbDisplayLayer enqueueSampleBuffer:sbuf];
+
+Feeding AVSampleBufferDisplayLayer
+Unconstrained source
+
+AVSampleBufferDisplayLayer
+
+Feeding AVSampleBufferDisplayLayer
+Unconstrained source
+!
+!
+
+AVSampleBufferDisplayLayer
+
+!
+!
+
+AVSampleBufferDisplayLayer throttles input:
+[sbDisplayLayer requestMediaDataWhenReadyOnQueue:dispatchQueue usingBlock:^{
+while ([sbDisplayLayer isReadyForMoreMediaData]) {
+CMSampleBuffer sbuf = copyNextSBuf();
+[sbDisplayLayer enqueueSampleBuffer:sbuf];
+CFRelease(sbuf);
+}
+}];
+
+Feeding AVSampleBufferDisplayLayer
+Unconstrained source
+!
+!
+
+AVSampleBufferDisplayLayer
+
+!
+!
+
+AVSampleBufferDisplayLayer throttles input:
+[sbDisplayLayer requestMediaDataWhenReadyOnQueue:dispatchQueue usingBlock:^{
+while ([sbDisplayLayer isReadyForMoreMediaData]) {
+CMSampleBuffer sbuf = copyNextSBuf();
+[sbDisplayLayer enqueueSampleBuffer:sbuf];
+CFRelease(sbuf);
+}
+}];
+
+Feeding AVSampleBufferDisplayLayer
+Unconstrained source
+!
+!
+
+AVSampleBufferDisplayLayer
+
+!
+!
+
+AVSampleBufferDisplayLayer throttles input:
+[sbDisplayLayer requestMediaDataWhenReadyOnQueue:dispatchQueue usingBlock:^{
+while ([sbDisplayLayer isReadyForMoreMediaData]) {
+CMSampleBuffer sbuf = copyNextSBuf();
+[sbDisplayLayer enqueueSampleBuffer:sbuf];
+CFRelease(sbuf);
+}
+}];
+
+Feeding AVSampleBufferDisplayLayer
+Unconstrained source
+!
+!
+
+AVSampleBufferDisplayLayer
+
+!
+!
+
+AVSampleBufferDisplayLayer throttles input:
+[sbDisplayLayer requestMediaDataWhenReadyOnQueue:dispatchQueue usingBlock:^{
+while ([sbDisplayLayer isReadyForMoreMediaData]) {
+CMSampleBuffer sbuf = copyNextSBuf();
+[sbDisplayLayer enqueueSampleBuffer:sbuf];
+CFRelease(sbuf);
+}
+}];
+
+AVSampleBufferDisplayLayer Summary
+Elementary Stream
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+CMTimebase
+
+AVSampleBufferDisplayLayer Summary
+Elementary Stream
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+CMTimebase
+
+Creation of AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer Summary
+Elementary Stream
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+CMTimebase
+
+Creation of AVSampleBufferDisplayLayer
+Converting an H.264 elementary stream into CMSampleBuffers
+
+AVSampleBufferDisplayLayer Summary
+Elementary Stream
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+CMTimebase
+
+Creation of AVSampleBufferDisplayLayer
+Converting an H.264 elementary stream into CMSampleBuffers
+Providing CMSampleBuffers to AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer Summary
+Elementary Stream
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+
+CMTimebase
+
+Creation of AVSampleBufferDisplayLayer
+Converting an H.264 elementary stream into CMSampleBuffers
+Providing CMSampleBuffers to AVSampleBufferDisplayLayer
+Using a custom CMTimebase with AVSampleBufferDisplayLayer
+
+Case Two
+Getting CVPixelBuffers from a compressed stream
+
+AVSampleBufferDisplayLayer
+
+AVSampleBufferDisplayLayer
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+AVSampleBufferDisplayLayer
+Video
+Decoder
+CVPixelBuffers
+
+VTDecompressionSession
+Getting access to the decoder
+
+Video
+Decoder
+
+VTDecompressionSession
+Getting access to the decoder
+VTDecompression
+Session
+Video
+Decoder
+
+VTDecompressionSession
+Getting access to the decoder
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompression
+Session
+Video
+Decoder
+
+VTDecompressionSession
+Getting access to the decoder
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompression
+Session
+Video
+Decoder
+CVPixelBuffers
+
+VTDecompressionSession
+Getting access to the decoder
+
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompression
+Session
+Video
+Decoder
+
+OutputCallback
+
+CVPixelBuffers
+
+Creating a VTDecompressionSession
+What you need
+
+Creating a VTDecompressionSession
+What you need
+• Description of source data—CMVideoFormatDescription
+
+Creating a VTDecompressionSession
+What you need
+• Description of source data—CMVideoFormatDescription
+• Requirements for output buffers—pixelBufferAttributes
+
+Creating a VTDecompressionSession
+What you need
+• Description of source data—CMVideoFormatDescription
+• Requirements for output buffers—pixelBufferAttributes
+• A VTDecompressionOutputCallback
+
+Requirements for Output CVPixelBuffers
+Creating a pixelBufferAttributes dictionary
+
+Requirements for Output CVPixelBuffers
+Creating a pixelBufferAttributes dictionary
+Example: OpenGL ES render pipeline
+
+VTDecompressionSession
+
+Requirements for Output CVPixelBuffers
+Creating a pixelBufferAttributes dictionary
+Example: OpenGL ES render pipeline
+!
+!
+!
+
+VTDecompressionSession
+
+!
+!
+
+To require OpenGL ES compatibility—
+NSDictionary *destinationImageBufferAttributes =
+[NSDictionary dictionaryWithObjectsAndKeys:
+[NSNumber numberWithBool:YES],(id)kCVPixelBufferOpenGLESCompatibilityKey,
+nil];
+
+Requirements for Output CVPixelBuffers
+Creating a pixelBufferAttributes dictionary
+Example: OpenGL ES render pipeline
+!
+!
+!
+
+VTDecompressionSession
+
+!
+!
+
+To require OpenGL ES compatibility—
+NSDictionary *destinationImageBufferAttributes =
+[NSDictionary dictionaryWithObjectsAndKeys:
+[NSNumber numberWithBool:YES],(id)kCVPixelBufferOpenGLESCompatibilityKey,
+nil];
+
+Optimizing Output
+Do not over specify
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+VTDecompressionSession
+Decoder
+YUV
+YUV
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+VTDecompressionSession
+Decoder
+YUV
+YUV
+
+kCVPixelBufferOpenGLESCompatibilityKey and ‘BGRA’ pixel format required
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+VTDecompressionSession
+Decoder
+YUV
+YUV
+
+kCVPixelBufferOpenGLESCompatibilityKey and ‘BGRA’ pixel format required
+VTDecompressionSession
+Decoder
+YUV
+BGRA
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+VTDecompressionSession
+Decoder
+YUV
+YUV
+
+kCVPixelBufferOpenGLESCompatibilityKey and ‘BGRA’ pixel format required
+VTDecompressionSession
+Decoder
+YUV
+
+BGRA
+BGRA
+
+Optimizing Output
+Do not over specify
+kCVPixelBufferOpenGLESCompatibilityKey requested
+VTDecompressionSession
+Decoder
+YUV
+YUV
+
+kCVPixelBufferOpenGLESCompatibilityKey and ‘BGRA’ pixel format required
+VTDecompressionSession
+Decoder
+YUV
+
+BGRA
+BGRA
+
+VTDecompressionOutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+OutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+VTDecompressionOutputCallback receives
+
+OutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+VTDecompressionOutputCallback receives
+• Output CVPixelBuffer
+
+OutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+VTDecompressionOutputCallback receives
+• Output CVPixelBuffer
+• Presentation time stamp
+
+OutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+VTDecompressionOutputCallback receives
+• Output CVPixelBuffer
+• Presentation time stamp
+• Decompression error codes
+
+OutputCallback
+
+VTDecompressionOutputCallback
+
+VTDecompressionSession
+
+VTDecompressionOutputCallback receives
+• Output CVPixelBuffer
+• Presentation time stamp
+• Decompression error codes
+• Dropped frames
+
+OutputCallback
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+err = VTDecompressionSessionDecodeFrame( session, sbuf,
+inFlags, refCon, &outFlags );
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+err = VTDecompressionSessionDecodeFrame( session, sbuf,
+inFlags, refCon, &outFlags );
+
+Wants CMSampleBuffers
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+err = VTDecompressionSessionDecodeFrame( session, sbuf,
+inFlags, refCon, &outFlags );
+
+Wants CMSampleBuffers
+Decode order
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+err = VTDecompressionSessionDecodeFrame( session, sbuf,
+inFlags, refCon, &outFlags );
+
+Wants CMSampleBuffers
+Decode order
+Synchronous by default
+
+Feeding VTDecompressionSession
+CMSampleBuffers
+H.264
+
+H.264
+
+H.264
+
+VTDecompressionSession
+
+err = VTDecompressionSessionDecodeFrame( session, sbuf,
+inFlags, refCon, &outFlags );
+
+Wants CMSampleBuffers
+Decode order
+Synchronous by default
+Set kVTDecodeFrame_EnableAsynchronousDecompression for async
+
+Async Decompression
+
+Async Decompression
+Decoder blocks when full—Decoder back pressure
+
+Async Decompression
+Decoder blocks when full—Decoder back pressure
+Finish async frames with VTDecompressionSessionWaitForAsynchronousFrames
+
+Changing CMVideoFormatDescription
+
+Changing CMVideoFormatDescription
+formatDesc1
+I frame
+
+SPS1
+
+P frame
+
+PPS1
+
+B frame
+B frame
+
+…
+
+Changing CMVideoFormatDescription
+formatDesc1
+I frame
+
+SPS1
+
+P frame
+
+PPS1
+
+B frame
+B frame
+
+…
+err = VTDecompressionSessionCreate( kCFAllocatorDefault, formatDesc1, … ,
+&session );
+
+Changing CMVideoFormatDescription
+formatDesc1
+
+formatDesc2
+
+I frame
+
+SPS1
+
+I frame
+
+SPS2
+
+P frame
+
+PPS1
+
+P frame
+
+PPS2
+
+B frame
+
+B frame
+
+B frame
+
+B frame
+
+…
+
+…
+
+err = VTDecompressionSessionCreate( kCFAllocatorDefault, formatDesc1, … ,
+&session );
+
+Changing CMVideoFormatDescription
+formatDesc1
+
+formatDesc2
+
+I frame
+
+SPS1
+
+I frame
+
+SPS2
+
+P frame
+
+PPS1
+
+P frame
+
+PPS2
+
+B frame
+
+B frame
+
+B frame
+
+B frame
+
+…
+
+…
+
+err = VTDecompressionSessionCreate( kCFAllocatorDefault, formatDesc1, … ,
+&session );
+Boolean needNewSession = ( VTDecompressionSessionCanAcceptFormatDescription(
+session, formatDesc2 ) == false);
+
+VTDecompressionSession Summary
+
+VTDecompressionSession Summary
+Creation of VTDecompressionSession
+
+VTDecompressionSession Summary
+Creation of VTDecompressionSession
+Make optimal decisions about output requirements
+
+VTDecompressionSession Summary
+Creation of VTDecompressionSession
+Make optimal decisions about output requirements
+Run your VTDecompressionSession synchronously and asynchronously
+
+VTDecompressionSession Summary
+Creation of VTDecompressionSession
+Make optimal decisions about output requirements
+Run your VTDecompressionSession synchronously and asynchronously
+Handling changes in CMVideoFormatDescription
+
+Case Three
+Compressing CVPixelBuffers into a file
+
+Compressing Video into a File
+
+Compressing Video into a File
+
+CVPixelBuffers
+
+Compressing Video into a File
+
+Movie File
+CVPixelBuffers
+
+Compressing Video into a File
+AVAssetWriter
+
+Movie File
+CVPixelBuffers
+
+Compressing Video into a File
+AVAssetWriter
+Video
+Encoder
+Movie File
+CVPixelBuffers
+
+Compressing Video into a File
+AVAssetWriter
+Video
+Encoder
+
+H.264
+Movie File
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+Compressing Video into a File
+AVAssetWriter
+Video
+Encoder
+
+H.264
+
+File
+Writer
+Movie File
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+For More Details on AVAssetWriter
+WWDC 2013—Moving to AVKit and AVFoundation
+WWDC 2011—Working with Media in AVFoundation
+
+Case Four
+Compressing CVPixelBuffers for the network
+
+Back Inside AVAssetWriter
+AVAssetWriter
+Video
+Encoder
+
+H.264
+
+File
+Writer
+Movie File
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+VTCompressionSession
+Getting access to the encoder
+
+VTCompressionSession
+Getting access to the encoder
+
+Video
+Encoder
+
+VTCompressionSession
+Getting access to the encoder
+VTCompression
+Session
+Video
+Encoder
+
+VTCompressionSession
+Getting access to the encoder
+VTCompression
+Session
+Video
+Encoder
+CVPixelBuffers
+
+VTCompressionSession
+Getting access to the encoder
+VTCompression
+Session
+Video
+Encoder
+
+H.264
+
+H.264
+
+CMSampleBuffers
+CVPixelBuffers
+
+H.264
+
+VTCompressionSession
+Getting access to the encoder
+VTCompression
+Session
+Video
+Encoder
+
+H.264
+
+H.264
+
+CMSampleBuffers
+CVPixelBuffers
+
+H.264
+
+Creating a VTCompressionSession
+What you need:
+
+Creating a VTCompressionSession
+What you need:
+• Dimensions for compressed output
+
+Creating a VTCompressionSession
+What you need:
+• Dimensions for compressed output
+• Format for compression (e.g., kCMVideoCodecType_H264)
+
+Creating a VTCompressionSession
+What you need:
+• Dimensions for compressed output
+• Format for compression (e.g., kCMVideoCodecType_H264)
+• PixelBufferAttributes describing source buffer requirements (optional)
+
+Creating a VTCompressionSession
+What you need:
+• Dimensions for compressed output
+• Format for compression (e.g., kCMVideoCodecType_H264)
+• PixelBufferAttributes describing source buffer requirements (optional)
+• A VTCompressionOutputCallback
+
+Configuring VTCompressionSession
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+kVTH264EntropyMode_CAVLC/kVTH264EntropyMode_CABAC
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+kVTH264EntropyMode_CAVLC/kVTH264EntropyMode_CABAC
+kVTCompressionPropertyKey_RealTime
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+kVTH264EntropyMode_CAVLC/kVTH264EntropyMode_CABAC
+kVTCompressionPropertyKey_RealTime
+kVTCompressionPropertyKey_ProfileLevel
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+kVTH264EntropyMode_CAVLC/kVTH264EntropyMode_CABAC
+kVTCompressionPropertyKey_RealTime
+kVTCompressionPropertyKey_ProfileLevel
+for example: kVTProfileLevel_H264_Main_AutoLevel
+
+Configuring VTCompressionSession
+Configure compression using VTSessionSetProperty() calls
+kVTCompressionPropertyKey_AllowFrameReordering
+kVTCompressionPropertyKey_AverageBitRate
+kVTCompressionPropertyKey_H264EntropyMode
+kVTH264EntropyMode_CAVLC/kVTH264EntropyMode_CABAC
+kVTCompressionPropertyKey_RealTime
+kVTCompressionPropertyKey_ProfileLevel
+for example: kVTProfileLevel_H264_Main_AutoLevel
+
+…and many more
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+err = VTCompressionSessionEncodeFrame( session, pixelBuffer,
+presentationTime, … );
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+err = VTCompressionSessionEncodeFrame( session, pixelBuffer,
+presentationTime, … );
+
+• Source frames as CVPixelBuffers with presentation time
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+err = VTCompressionSessionEncodeFrame( session, pixelBuffer,
+presentationTime, … );
+
+• Source frames as CVPixelBuffers with presentation time
+• Presentation order
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+err = VTCompressionSessionEncodeFrame( session, pixelBuffer,
+presentationTime, … );
+
+• Source frames as CVPixelBuffers with presentation time
+• Presentation order
+• Output may be delayed
+
+Feeding VTCompressionSession
+
+VTCompressionSession
+
+err = VTCompressionSessionEncodeFrame( session, pixelBuffer,
+presentationTime, … );
+
+• Source frames as CVPixelBuffers with presentation time
+• Presentation order
+• Output may be delayed
+• Use VTCompressionSessionCompleteFrames() to finish pending frames
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+H.264
+
+OutputCallback
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback:
+
+H.264
+
+OutputCallback
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback:
+• Output CMSampleBuffer
+
+H.264
+
+OutputCallback
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback:
+• Output CMSampleBuffer
+• Compression error codes
+
+H.264
+
+OutputCallback
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback:
+• Output CMSampleBuffer
+• Compression error codes
+• Dropped frames
+
+H.264
+
+OutputCallback
+
+VTCompressionOutputCallback
+
+VTCompressionSession
+
+VTCompressionOutputCallback:
+• Output CMSampleBuffer
+• Compression error codes
+• Dropped frames
+• Frames emitted in decode order
+
+H.264
+
+OutputCallback
+
+CMSampleBuffers and Elementary Streams
+
+CMSampleBuffers and Elementary Streams
+MPEG-4
+
+H.264
+
+H.264
+
+CMSampleBuffers
+
+H.264
+
+CMSampleBuffers and Elementary Streams
+MPEG-4
+
+H.264
+
+H.264
+
+CMSampleBuffers
+
+Elementary Stream
+
+H.264
+
+CMSampleBuffers and Elementary Streams
+MPEG-4
+
+H.264
+
+H.264
+
+CMSampleBuffers
+
+Elementary Stream
+
+H.264
+
+Processing
+
+H.264 Syntax
+Conversion of parameter sets
+MPEG-4
+
+Elementary Stream
+
+H.264 Syntax
+Conversion of parameter sets
+MPEG-4
+SPS
+PPS
+CMVideoFormatDescription
+
+Elementary Stream
+
+H.264 Syntax
+Conversion of parameter sets
+MPEG-4
+
+Elementary Stream
+
+SPS
+
+SPS
+
+PPS
+
+PPS
+
+CMVideoFormatDescription
+
+H.264 Syntax
+Conversion of parameter sets
+MPEG-4
+
+Elementary Stream
+
+SPS
+
+SPS
+
+PPS
+
+PPS
+
+CMVideoFormatDescription
+
+CMVideoFormatDescriptionGetH264ParameterSetAtIndex
+
+H.264 Syntax
+NAL Unit headers
+MPEG-4
+
+Elementary Stream
+
+H.264 Syntax
+NAL Unit headers
+MPEG-4
+00 00 80 00
+
+I Frame
+(32768 bytes)
+
+4-Byte Header:
+Length
+
+Elementary Stream
+
+H.264 Syntax
+NAL Unit headers
+MPEG-4
+00 00 80 00
+
+Elementary Stream
+00 00 01
+
+I Frame
+(32768 bytes)
+
+I Frame
+
+4-Byte Header:
+Length
+
+3- or 4-Byte Header:
+Start Code
+
+VTCompressionSession Summary
+
+VTCompressionSession Summary
+Creation of VTCompressionSession
+
+VTCompressionSession Summary
+Creation of VTCompressionSession
+Configuring the compressor
+
+VTCompressionSession Summary
+Creation of VTCompressionSession
+Configuring the compressor
+Providing CVPixelBuffers to VTCompressionSession
+
+VTCompressionSession Summary
+Creation of VTCompressionSession
+Configuring the compressor
+Providing CVPixelBuffers to VTCompressionSession
+Converting CMSampleBuffers into H.264 elementary stream packaging
+
+Multi-Pass Encoding
+Erik Turnquist
+Core Media Engineer
+
+Quality vs. Bit Rate
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Untitled 1
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Build
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Quality
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Build
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Quantity
+
+High
+Medium
+Low
+
+Quality
+
+Bit Rate
+Both
+
+What Is Multi-Pass Encoding?
+
+Single-Pass Encoding
+
+Single-Pass Encoding
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Movie File
+
+Single-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Movie File
+
+Single-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Movie File
+
+Multi-Pass Encoding
+
+Multi-Pass Encoding
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Multi-Pass Encoding
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Frame Database
+
+Multi-Pass Encoding
+Resend Frames
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Frame Database
+
+Multi-Pass Encoding
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Frame Database
+
+Multi-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Frame Database
+
+Multi-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Frame Database
+
+Multi-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+Frame Database
+
+H.264
+
+Movie File
+
+Multi-Pass Encoding
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+Encoder Database
+
+CMSampleBuffers
+
+H.264
+
+Frame Database
+
+H.264
+
+Movie File
+
+Multi-Pass Encoder Features
+Single-Pass
+Hardware Accelerated
+Knowledge of Future
+Change Decisions
+Optimal Quality per Bit
+
+Multi-Pass
+
+Multi-Pass Encoder Features
+Single-Pass
+Hardware Accelerated
+Knowledge of Future
+Change Decisions
+Optimal Quality per Bit
+
+Multi-Pass
+
+Multi-Pass Encoder Features
+Single-Pass
+Hardware Accelerated
+Knowledge of Future
+Change Decisions
+Optimal Quality per Bit
+
+Multi-Pass
+
+Multi-Pass Encoder Features
+Single-Pass
+Hardware Accelerated
+Knowledge of Future
+Change Decisions
+Optimal Quality per Bit
+
+Multi-Pass
+
+Multi-Pass Encoder Features
+Single-Pass
+Hardware Accelerated
+Knowledge of Future
+Change Decisions
+Optimal Quality per Bit
+
+Multi-Pass
+
+New APIs
+
+AVKit
+
+AVFoundation
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+AVFoundation
+New AVAssetExportSession property
+Pass descriptions for AVAssetWriterInput
+Reuse of AVAssetReaderOutput
+
+AVAssetExportSession
+Overview
+
+AVAssetExportSession
+Overview
+
+Movie File
+
+CMSampleBuffers
+
+H.264
+
+CVPixelBuffers
+
+Video
+Decoder
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetExportSession
+Overview
+AVAssetExportSession
+Movie File
+
+CMSampleBuffers
+
+H.264
+
+CVPixelBuffers
+
+Video
+Decoder
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetExportSession
+New APIs
+
+AVAssetExportSession
+New APIs
+Multiple passes are taken care of automatically
+
+AVAssetExportSession
+New APIs
+Multiple passes are taken care of automatically
+• Falls back to single-pass if not supported
+
+AVAssetExportSession
+New APIs
+Multiple passes are taken care of automatically
+• Falls back to single-pass if not supported
+@property (nonatomic) BOOL canPerformMultiplePassesOverSourceMediaData;
+
+AVAssetWriter
+Overview
+
+AVAssetWriter
+Overview
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriter
+Overview
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriter
+Overview
+AVAssetWriterInput
+CVPixelBuffers
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriter
+Overview
+
+AVAssetWriter
+Overview
+
+CVPixelBuffers
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriter
+Overview
+
+Movie File
+
+CMSampleBuffers
+
+H.264
+
+CVPixelBuffers
+
+Video
+Decoder
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriter
+Overview
+AVAssetReaderOutput
+Movie File
+
+CMSampleBuffers
+
+H.264
+
+AVAssetWriterInput
+CVPixelBuffers
+
+Video
+Decoder
+
+CMSampleBuffers
+
+Video
+Encoder
+
+H.264
+
+Movie File
+
+AVAssetWriterInput
+New APIs
+
+AVAssetWriterInput
+New APIs
+Enable multi-pass encoding if supported
+@property (nonatomic) BOOL performsMultiPassEncodingIfSupported;
+
+AVAssetWriterInput
+New APIs
+Enable multi-pass encoding if supported
+@property (nonatomic) BOOL performsMultiPassEncodingIfSupported;
+
+End current pass after appending samples
+- (void)markCurrentPassAsFinished;
+
+AVAssetWriterInput
+New APIs
+Enable multi-pass encoding if supported
+@property (nonatomic) BOOL performsMultiPassEncodingIfSupported;
+
+End current pass after appending samples
+- (void)markCurrentPassAsFinished;
+
+Triggers encoder analysis
+
+AVAssetWriterInput
+New APIs
+Enable multi-pass encoding if supported
+@property (nonatomic) BOOL performsMultiPassEncodingIfSupported;
+
+End current pass after appending samples
+- (void)markCurrentPassAsFinished;
+
+Triggers encoder analysis
+Encoder decides if it wants more passes and what time ranges
+
+AVAssetWriterInputPassDescription
+
+0
+
+3
+
+5
+
+7
+
+AVAssetWriterInputPassDescription
+
+0
+
+3
+
+Encoder’s request for samples in next pass
+• May contain subsets of entire sequence
+
+5
+
+7
+
+AVAssetWriterInputPassDescription
+
+0
+
+3
+
+5
+
+Encoder’s request for samples in next pass
+• May contain subsets of entire sequence
+
+Query pass description time ranges
+@property (nonatomic, readonly) NSArray *sourceTimeRanges;
+
+7
+
+AVAssetWriterInputPassDescription
+
+0
+
+3
+
+5
+
+Encoder’s request for samples in next pass
+• May contain subsets of entire sequence
+
+Query pass description time ranges
+@property (nonatomic, readonly) NSArray *sourceTimeRanges;
+
+Array of CMTimeRanges as NSValues
+
+7
+
+AVAssetWriterInput
+Pass descriptions
+
+AVAssetWriterInput
+Pass descriptions
+Block is called when encoder makes decision about next pass
+- (void)respondToEachPassDescriptionOnQueue:(dispatch_queue_t)queue
+usingBlock:(dispatch_block_t)block;
+
+AVAssetWriterInput
+Pass descriptions
+Block is called when encoder makes decision about next pass
+- (void)respondToEachPassDescriptionOnQueue:(dispatch_queue_t)queue
+usingBlock:(dispatch_block_t)block;
+
+Get the new description
+@property (readonly) AVAssetWriterInputPassDescription *currentPassDescription;
+
+AVAssetWriterInput
+Sample
+
+AVAssetWriterInput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (pass != nil) {
+// Reconfigure source to deliver samples
+[source deliverSamplesFromPassDescription:pass];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVAssetWriterInput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (pass != nil) {
+// Reconfigure source to deliver samples
+[source deliverSamplesFromPassDescription:pass];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVAssetWriterInput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (pass != nil) {
+// Reconfigure source to deliver samples
+[source deliverSamplesFromPassDescription:pass];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVAssetWriterInput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (pass != nil) {
+// Reconfigure source to deliver samples
+[source deliverSamplesFromPassDescription:pass];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVAssetWriterInput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (pass != nil) {
+// Reconfigure source to deliver samples
+[source deliverSamplesFromPassDescription:pass];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVAssetReaderOutput
+New APIs
+
+AVAssetReaderOutput
+New APIs
+Prepare source for multi-pass
+@property (nonatomic) BOOL supportsRandomAccess;
+
+AVAssetReaderOutput
+New APIs
+Prepare source for multi-pass
+@property (nonatomic) BOOL supportsRandomAccess;
+
+Reconfigure source to deliver samples in time ranges
+- (void)resetForReadingTimeRanges:(NSArray *)timeRanges;
+
+AVAssetReaderOutput
+New APIs
+Prepare source for multi-pass
+@property (nonatomic) BOOL supportsRandomAccess;
+
+Reconfigure source to deliver samples in time ranges
+- (void)resetForReadingTimeRanges:(NSArray *)timeRanges;
+
+All passes have completed
+- (void)markConfigurationAsFinal;
+
+AVAssetReader and AVAssetWriter
+
+AVAssetReader and AVAssetWriter
+Enable AVAssetReaderOutput if AVAssetWriterInput support multi-pass
+readerOutput.supportsRandomAccess = writerInput.canPerformMultiplePasses;
+
+AVAssetReader and AVAssetWriter
+Enable AVAssetReaderOutput if AVAssetWriterInput support multi-pass
+readerOutput.supportsRandomAccess = writerInput.canPerformMultiplePasses;
+
+Reconfigure source to deliver samples for an AVAssetWriterInput
+[readerOutput resetForReadingTimeRanges:passDescription.sourceTimeRanges];
+
+AVAssetReaderOutput
+Sample
+
+AVAssetReaderOutput
+Sample
+[assetWriterInput respondToEachPassDescriptionOnQueue:queue usingBlock:^{
+AVAssetWriterInputPassDescription *pass = [assetWriterInput currentPassDescription];
+if (currentPass != nil) {
+// Reconfigure source to deliver samples
+[readerOutput resetForReadingTimeRanges:pass.sourceTimeRanges];
+// Ready to start next pass
+[assetWriterInput requestMediaDataWhenReadyOnQueue:queue usingBlock:block];
+} else {
+// Finished
+[assetWriterInput markAsFinished];
+}
+}];
+
+AVKit
+
+AVFoundation
+
+Video Toolbox
+
+Core Media
+
+Core Video
+
+Video Toolbox
+Encoder frame analysis database
+• VTMultiPassStorage
+
+Additions to VTCompressionSession
+Compressed frame database
+• VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+
+Video Toolbox Multi-Pass
+Architecture
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+Video Toolbox Multi-Pass
+Architecture
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+Resend
+Frames
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+Video Toolbox Multi-Pass
+Architecture
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+VTFrameSilo
+
+H.264
+
+Movie File
+
+Video Toolbox Multi-Pass
+Architecture
+Finished
+
+CVPixelBuffers
+
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+CMSampleBuffers
+
+H.264
+
+VTFrameSilo
+
+H.264
+
+Movie File
+
+VTMultiPassStorage
+Encoder Analysis
+
+VTMultiPassStorage
+
+VTMultiPassStorage
+Encoder Analysis
+
+VTMultiPassStorage
+
+Create the encoder analysis storage
+error = VTMultiPassStorageCreate( allocator, fileURL, timeRange,
+options, &storage );
+
+VTMultiPassStorage
+Encoder Analysis
+
+VTMultiPassStorage
+
+Create the encoder analysis storage
+error = VTMultiPassStorageCreate( allocator, fileURL, timeRange,
+options, &storage );
+
+Close the file
+error = VTMultiPassStorageClose( storage );
+
+VTCompressionSession
+VTCompressionSession
+
+Video Encoder
+
+VTMultiPassStorage
+
+VTCompressionSession
+VTCompressionSession
+
+VTMultiPassStorage
+
+Video Encoder
+
+Enable multi-pass
+error = VTSessionSetProperty( session,
+kVTCompressionPropertyKey_MultiPassStorage, multiPassStorage );
+
+VTCompressionSession
+
+VTCompressionSession
+Begin a pass
+error = VTCompressionSessionBeginPass( session, 0, NULL );
+
+VTCompressionSession
+Begin a pass
+error = VTCompressionSessionBeginPass( session, 0, NULL );
+
+End a pass
+• Asks the encoder if another pass can be performed
+error = VTCompressionSessionEndPass( session,
+&furtherPassesRequested, NULL );
+
+VTCompressionSession
+Begin a pass
+error = VTCompressionSessionBeginPass( session, 0, NULL );
+!
+End
+a pass
+•End
+a pass
+Asks
+the encoder if another pass can be performed
+Asks
+the=encoder
+if another pass can be performed
+error
+VTCompressionSessionEndPass(
+session,
+
+NULL );
+error = VTCompressionSessionEndPass(&furtherPassesRequested,
+session,
+
+&furtherPassesRequested, NULL );
+Retrieve time ranges for next pass
+error = VTCompressionSessionGetTimeRangesForNextPass( session,
+&timeRangesCount, &timeRangeArray );
+
+VTFrameSilo
+CMSampleBuffers
+
+H.264
+
+H.264
+
+VTFrameSilo
+
+VTFrameSilo
+CMSampleBuffers
+
+H.264
+
+VTFrameSilo
+
+H.264
+
+Create compressed frame storage
+error = VTFrameSiloCreate( allocator, fileURL, timeRange, options, &silo );
+
+VTFrameSilo
+CMSampleBuffers
+
+H.264
+
+VTFrameSilo
+
+H.264
+
+Create compressed frame storage
+error = VTFrameSiloCreate( allocator, fileURL, timeRange, options, &silo );
+
+Add a sample in VTCompressionOutputCallback
+error = VTFrameSiloAddSampleBuffer( silo, sampleBuffer );
+
+VTFrameSilo
+CMSampleBuffers
+
+H.264
+
+VTFrameSilo
+
+H.264
+
+Create compressed frame storage
+error = VTFrameSiloCreate( allocator, fileURL, timeRange, options, &silo );
+
+Add a sample in VTCompressionOutputCallback
+error = VTFrameSiloAddSampleBuffer( silo, sampleBuffer );
+
+Prepare for next pass
+error = VTFrameSiloSetTimeRangesForNextPass( silo,
+timeRangeCount, timeRangeArray );
+
+VTFrameSilo
+File output
+VTFrameSilo
+
+Movie File
+
+VTFrameSilo
+File output
+VTFrameSilo
+
+Movie File
+
+Retrieve samples for time range
+error = VTFrameSiloCallBlockForEachSampleBuffer( silo,
+timeRange, ^(CMSampleBuffer sampleBuffer) {
+// append sampleBuffer to movie file
+});
+
+Considerations
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Use Case Considerations
+Best Choice
+Real Time
+
+Single-Pass
+
+Minimum Power Use
+
+Single-Pass
+
+Minimum Temporary Storage
+
+Single-Pass
+
+Best Quality
+
+Multi-Pass
+
+Closer to Target Bit Rate
+
+Multi-Pass
+
+Okay to Take Longer
+
+Multi-Pass
+
+Your App
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Content Considerations
+Best Choice
+Low Complexity
+
+Single/Multi
+
+High Complexity
+
+Single/Multi
+
+Varying Complexity
+
+Multi-Pass
+
+Your Content
+
+Experiment
+
+Summary
+
+Summary
+AVFoundation provides powerful APIs to operate on media
+
+Summary
+AVFoundation provides powerful APIs to operate on media
+Video Toolbox APIs provide direct codec access
+
+Summary
+AVFoundation provides powerful APIs to operate on media
+Video Toolbox APIs provide direct codec access
+Multi-pass can provide substantial quality improvements
+
+More Information
+Evangelism
+evangelism@apple.com
+!
+
+AVFoundation Documentation
+AVFoundation Programming Guide
+https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/
+
+Apple Developer Forums
+http://devforums.apple.com
+
+Related Sessions
+•
+Harnessing
+Metadata
+in
+Audiovisual
+Media
+•
+Camera
+Capture:
+Manual
+Controls
+•
+Introducing
+the
+Photos
+Frameworks
+•
+Mastering Modern Media Playback
+
+Mission
+
+Tuesday 11:30AM
+
+Pacific Heights
+
+Tuesday 2:00PM
+
+Marina
+
+Wednesday 11:30AM
+
+Nob Hill
+
+Thursday 10:15AM
+
+Labs
+•
+
+AVFoundation and Camera Capture Lab
+
+Media Lab A
+
+Thursday 2:00PM
+
+
