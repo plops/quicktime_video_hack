@@ -1,3 +1,6 @@
+i used gemini 1.5 pro on 2024-06-22 using the context produced by gather01_files.sh.
+the context is around 100k tokens.
+
 ## iOS ScreenSharing Feature Technical Documentation Summary:
 
 **Enabling ScreenSharing on USB Level:**
