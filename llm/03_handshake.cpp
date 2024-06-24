@@ -33,6 +33,34 @@ int main() {
         return 1;
     }
 
+    // use libusb to iterate through all configurations and interfaces
+    // and print them
+    auto list_all_configurations = [&dev_handle](){
+    libusb_device *dev = libusb_get_device(dev_handle);
+    libusb_config_descriptor *config;
+    libusb_get_active_config_descriptor(dev, &config);
+    cout << "Active configuration: " << (int)config->bConfigurationValue << endl;
+    for (int i = 0; i < config->bNumInterfaces; i++) {
+        const libusb_interface &interface = config->interface[i];
+        cout << "Interface " << i << ":" << endl;
+        for (int j = 0; j < interface.num_altsetting; j++) {
+            const libusb_interface_descriptor &interface_desc = interface.altsetting[j];
+            cout << "  Altsetting " << j << ":" << endl;
+            cout << "    Interface number: " << (int)interface_desc.bInterfaceNumber << endl;
+            cout << "    Number of endpoints: " << (int)interface_desc.bNumEndpoints << endl;
+            for (int k = 0; k < interface_desc.bNumEndpoints; k++) {
+                const libusb_endpoint_descriptor &endpoint_desc = interface_desc.endpoint[k];
+                cout << "    Endpoint " << k << ":" << endl;
+                cout << "      Address: " << (int)endpoint_desc.bEndpointAddress << endl;
+                cout << "      Attributes: " << (int)endpoint_desc.bmAttributes << endl;
+                cout << "      Max packet size: " << (int)endpoint_desc.wMaxPacketSize << endl;
+            }
+        }
+    }
+    };
+    list_all_configurations();
+
+
     // Enable QT-Config
     rc = libusb_control_transfer(dev_handle, 0x40, 0x52, 0x00, 0x02, nullptr, 0, 1000);
     if (rc < 0) {
@@ -48,13 +76,16 @@ int main() {
 
     // Re-open the device with QT-Config active
     libusb_close(dev_handle);
+
     dev_handle = libusb_open_device_with_vid_pid(ctx, QT_VENDOR_ID, QT_PRODUCT_ID);
     if (dev_handle == nullptr) {
         cerr << "Error: Device not found after reconnection." << endl;
         libusb_exit(ctx);
         return 1;
     }
-    
+
+    // list all configurations
+    list_all_configurations();
     // Set active configuration to QT config
     rc = libusb_set_configuration(dev_handle, QT_CONFIG_INDEX);
     if (rc != 0) {
